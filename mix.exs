@@ -24,7 +24,7 @@ defmodule Docker.Mixfile do
 
   defp deps do
     [
-      {:exjsx, "~> 3.0"},
+      {:exjsx, "~> 4.0"},
       {:hackney, "~> 1.8"}
     ]
   end

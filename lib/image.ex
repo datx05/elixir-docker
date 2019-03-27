@@ -16,11 +16,12 @@ defmodule Docker.Image do
     end
   end
 
-  # TODO stream output
-  def pull(srv, id) do
+  def pull(srv, id, pid \\ self()) do
     req =
-      Request.post("/image/create")
+      Request.post("/images/create")
       |> Request.query(fromImage: id)
+      # |> Request.packed()
+      |> Request.stream_to(pid)
 
     GenServer.call(srv, req)
   end
