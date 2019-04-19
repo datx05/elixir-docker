@@ -29,8 +29,12 @@ defmodule Docker.JsonDecoder do
 
   # based on facts that docker sends one JSON object in a chunk,
   # if this is changed, this will fail.
+  # UPDATE: Now works with multiple chunks tho!
   def decode_chunk!(chunk, "") do
-    {decode!(chunk), ""}
+    {
+      Regex.scan(~r/{.+}/, chunk) |> List.flatten() |> Enum.map(&(decode!(&1))),
+      ""
+    }
   end
 
   def flush!(""), do: nil
